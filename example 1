@@ -1,0 +1,66 @@
+''''
+name   : md. tanviir akter shaon
+id     : 011 171 292
+subject: Simulation & Modeling Laboratory(CSI 424)
+section: A
+date   : 09-03-2021
+'''
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+list=[100,1000,5000,10000,100000]                      # list for  test case
+
+redius=float(input("enter the value of redius: "))     # get the value of redius from user
+
+lx=int(input("lower value of x: "))                    # get lowar value of x from user
+ 
+ly=int(input("lower value of y: "))                    # get lowar value of y from user
+
+hx=int(input("hight value of x: "))                    # get hight value of x from user
+
+hy=int(input("hight value of y: "))                    # get hight value of y from user
+
+for n in list:                                        #loop for multiple test 
+
+    hits=0                          # initial hits variable                  
+
+    hits_x=[]                       # initial hits_x list for cordinate for x of hitting point inside the circle
+    hits_y=[]                       # initial hits_y list for cordinate for x of hitting point inside the circle
+
+    miss_hit_x=[]                   # initial miss_hits_x list for cordinate for x of miss hitting point inside the circle
+    miss_hit_y=[]                   # initial miss_hits_x list for cordinate for x of miss hitting point inside the circle
+
+    
+    for i in range(n):
+
+        x=np.random.uniform(lx,hx)                   #get rendom x
+        y=np.random.uniform(ly,hy)                   #get rendom x
+
+        if math.sqrt((x)**2+(y)**2) <=redius:    #check the dart is hitting inside the or not      
+
+          hits=hits+1                                # if dart hit inside circle then increase vaule of hits
+
+          hits_x.append(x)                          # if dart hit inside circle then increase vaule of hits_x list for ploting
+          hits_y.append(y)                          # if dart hit inside circle then increase vaule of hits_y list for ploting
+        else:
+
+          miss_hit_x.append(x)                       # if dart miss hit inside circle then increase vaule of miss_hits_x list for ploting
+          miss_hit_y.append(y)                       # if dart miss hit inside circle then increase vaule of miss_hits_y list for ploting
+    
+    PI=((((hx-lx)*(hy-ly))/(redius**2)))*(hits/n)      # calculate the value of PI
+
+    AreaOfCircle=((hx-lx)*(hy-ly))*(hits/n)          # calculate the Area of circle 
+
+    print(f'\ntotal hit is {hits} for {n} trails')   # print total hit
+
+    print(f'value of pi is {PI} for {n} trails')     # print the value of PI
+
+    print(f'Area of circle is {AreaOfCircle} for {n} trails\n')            # print the area of circle
+
+    plt.scatter(hits_x,hits_y,color="red",label="Hit Points")              #plot hitting inside circle
+    plt.scatter(miss_hit_x,miss_hit_y,color="green",label="Miss Points")   #plot hitting inside rectangle but outside circle
+    plt.title(f'plot for {n} trails')
+    plt.legend()                                                           # show meaning of color
+    plt.show()                                                             # show the plot
